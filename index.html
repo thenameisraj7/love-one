@@ -164,8 +164,10 @@
       box-shadow: 0 24px 48px rgba(255, 154, 158, 0.25), 
                   inset 0 1px 2px rgba(255, 255, 255, 0.5);
       display: flex;
+      flex-direction: flex-wrap;
       flex-direction: column;
       align-items: center;
+      text-center: center;
       width: 100%;
       position: relative;
       overflow: visible;
@@ -519,8 +521,8 @@
       <!-- PAGE ONE SECTION CONTAINER -->
       <div id="page-1" class="page">
         <div class="gif-wrapper">
-          <!-- Updated source to target local raj.gif -->
-          <img id="gif-p1" class="romantic-gif" src="raj.gif" alt="Cute Proposal GIF">
+          <!-- Proposing GIF Placeholder -->
+          <img id="gif-p1" class="romantic-gif" src="https://media.tenor.com/images/9c3365a6e8df81f211364b497dbfa4e9/tenor.gif" alt="Cute Proposal Proposing GIF">
         </div>
         
         <h2 class="salutation">Hey Riddhima ❤️</h2>
@@ -542,6 +544,7 @@
       <!-- PAGE TWO SECTION CONTAINER -->
       <div id="page-2" class="page hidden">
         <div class="gif-wrapper">
+          <!-- Celebration Accent GIF Placeholder -->
           <img id="gif-p2" class="romantic-gif" src="https://media.tenor.com/images/5d31fb84a3070624bf162a4073fb1178/tenor.gif" alt="Romantic Celebration GIF">
         </div>
         
@@ -556,7 +559,7 @@
             <div class="envelope-flap"></div>
             <div class="envelope-pocket"></div>
             <div class="letter-card">
-              <div style="width: 100%; height: 100%; border: 1px dashed rgba(255,117,140,0.4); border-radius: 4px; display:flex; align-items:center; justify-content:center; color:#ff758c; font-weight:600; font-size:13px;">
+              <div style="width: 100%; height: 100%; border: 1px dashed rgba(255,117,140,0.4); border-radius: 4px; display:flex; items-content: center; align-items:center; justify-content:center; color:#ff758c; font-weight:600; font-size:13px;">
                 Tap to Open 💌
               </div>
             </div>
@@ -564,7 +567,7 @@
         </div>
 
         <!-- Hidden Extended Letter Card Target Block Container -->
-        <div id="opened-letter-block" class="expanded-letter hidden">
+        <div id="expanded-letter-block" class="expanded-letter hidden">
           <div class="letter-text" id="typewriter-target"></div>
           <div class="signature-area">
             <div class="signature-text">Made with endless love by Raj <span class="heartbeat-icon">❤️</span></div>
@@ -625,7 +628,7 @@
     const page1 = document.getElementById('page-1');
     const page2 = document.getElementById('page-2');
     const envelopeNode = document.getElementById('envelope-interactive-node');
-    const expandedLetterBlock = document.getElementById('opened-letter-block');
+    const expandedLetterBlock = document.getElementById('expanded-letter-block');
     const typewriterTarget = document.getElementById('typewriter-target');
     const ambientContainer = document.getElementById('ambient-container');
     const cursorGlow = document.getElementById('cursor-glow');
@@ -830,7 +833,7 @@
         executeFinalEvasionPhaseChange();
       } else {
         // Linear structural microgrowths until final realization thresholds are processed
-        currentYesScale += 0.045; 
+        currentYesScale += 0.045; // Increments precisely between 3% and 5% scale ratios
         yesButton.style.transform = `scale(${currentYesScale})`;
       }
     }
@@ -931,7 +934,7 @@
           const angle = Math.random() * 2 * Math.PI;
           const distance = Math.random() * 220 + 80;
           const mx = Math.cos(angle) * distance;
-          const my = Math.sin(angle) * distance - 60; 
+          const my = Math.sin(angle) * distance - 60; // Upward bias adjustments
           
           node.style.setProperty('--mx', mx + 'px');
           node.style.setProperty('--my', my + 'px');
@@ -996,6 +999,7 @@
           typewriterTarget.textContent += char;
           charIdx++;
           
+          // Adaptive cadence generation logic ensuring natural readability feel
           let calculatedDelay = 35;
           if (char === '\n') calculatedDelay = 320;
           else if (char === '.' || char === ',') calculatedDelay = 150;
