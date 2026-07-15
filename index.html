@@ -231,7 +231,7 @@
             border: 1px solid rgba(255, 77, 141, 0.25);
             border-radius: 20px;
             padding: 16px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             position: relative;
         }
 
@@ -250,7 +250,8 @@
             align-items: center;
             min-height: 80px;
             position: relative;
-            margin-top: 15px;
+            margin-top: 5px;
+            margin-bottom: 25px;
         }
 
         .btn {
@@ -314,31 +315,34 @@
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), left 0.35s cubic-bezier(0.25, 1, 0.5, 1), top 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
 
-        /* Banner message container on top */
-        .toast-banner {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px);
+        /* Glassmorphism Message Bubble Below Buttons */
+        .message-bubble {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 16px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
             opacity: 0;
-            background: rgba(255, 77, 141, 0.2);
-            border: 1px solid rgba(255, 77, 141, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: #ffb3d1;
-            font-weight: 500;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 30;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .toast-banner.show {
+        .message-bubble.visible {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+            color: #ffb3d1;
+            font-weight: 500;
+            line-height: 1.4;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
         }
 
         /* Smoke effect for NO button disappearing */
@@ -550,7 +554,7 @@
                 margin-bottom: 18px;
             }
             .question-box {
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
             .envelope-wrapper {
                 height: 140px;
@@ -594,7 +598,6 @@
         
         <!-- ================= PAGE 1 ================= -->
         <div class="card" id="page-1">
-            <div class="toast-banner" id="toastMessage">Soch lo 🥺</div>
             
             <div class="gif-container">
                 <!-- Proposing Cute GIF - Easily customisable link -->
@@ -615,6 +618,11 @@
                 <button class="btn" id="btn-no" onmouseenter="runAwayFromCursor()" onclick="runAwayFromCursor(true)">
                     💔 NO
                 </button>
+            </div>
+
+            <!-- Beautiful Glassmorphism Message Bubble Fixed Position -->
+            <div class="message-bubble" id="messageBubble">
+                <span class="message-text" id="bubbleText"></span>
             </div>
         </div>
 
@@ -661,7 +669,6 @@
         // Custom Cursor Glow Setup
         const cursorGlow = document.getElementById('cursor-glow');
         const cursorHeart = document.getElementById('cursor-heart');
-        let trailCoords = [];
 
         window.addEventListener('mousemove', (e) => {
             cursorGlow.style.left = e.clientX + 'px';
@@ -669,7 +676,6 @@
             cursorHeart.style.left = e.clientX + 'px';
             cursorHeart.style.top = e.clientY + 'px';
             
-            // Add point for trail tracing
             if(Math.random() < 0.35) {
                 spawnHeartTrail(e.clientX, e.clientY);
             }
@@ -755,7 +761,6 @@
                     this.alpha -= this.decay;
                 }
 
-                // Fireflies wiggle movement
                 if (this.type === 'firefly') {
                     this.vx += (Math.random() - 0.5) * 0.2;
                     this.vy += (Math.random() - 0.5) * 0.2;
@@ -763,7 +768,6 @@
             }
         }
 
-        // Initialize Ambient Particle Layers
         function initParticles() {
             for (let i = 0; i < 30; i++) {
                 particles.push(new Particle('firefly'));
@@ -772,11 +776,9 @@
         }
         initParticles();
 
-        // Canvas animation frame loop
         function processVFXLoop() {
             ctx.clearRect(0, 0, systemWidth, systemHeight);
             
-            // Periodically seed natural falling elements
             if (particles.filter(p => p.type === 'petal').length < 25 && Math.random() < 0.05) {
                 particles.push(new Particle('petal'));
             }
@@ -789,7 +791,6 @@
                 p.update();
                 p.draw();
 
-                // Clean-up elements offscreen or fully faded
                 if (p.alpha <= 0 || p.y > systemHeight + 20 || p.x < -20 || p.x > systemWidth + 20) {
                     particles.splice(i, 1);
                 }
@@ -798,7 +799,6 @@
         }
         processVFXLoop();
 
-        // Custom Visual Events triggers
         function spawnHeartTrail(x, y) {
             particles.push(new Particle('heart', x, y, true, (Math.random() - 0.5) * 0.8, -Math.random() * 1.2 - 0.5));
             particles[particles.length - 1].decay = 0.03;
@@ -806,7 +806,6 @@
         }
 
         function createNoInteractionExplosion(x, y) {
-            // Explode sparkles, hearts and emojis on No interaction
             for (let i = 0; i < 15; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 4 + 2;
@@ -817,7 +816,6 @@
         }
 
         function playGrandConfettiExplosion() {
-            // Heart rain and beautiful explosion for page confirmation
             for (let i = 0; i < 150; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 8 + 4;
@@ -829,7 +827,6 @@
                 particles[particles.length - 1].size *= 1.5;
             }
         }
-
 
         // ================= INTERACTION ENGINE =================
 
@@ -869,21 +866,24 @@
         const btnYes = document.getElementById('btn-yes');
         const btnNo = document.getElementById('btn-no');
         const card1 = document.getElementById('page-1');
-        const toast = document.getElementById('toastMessage');
+        const messageBubble = document.getElementById('messageBubble');
+        const bubbleText = document.getElementById('bubbleText');
 
-        // Escaping NO button logic
         function runAwayFromCursor(wasClicked = false) {
-            // Increase interactive weight and execute visual reactions
             noCount++;
             
             // Screen shake
             card1.classList.add('shake-active');
             setTimeout(() => card1.classList.remove('shake-active'), 400);
 
-            // Toast dynamic message display
+            // Handle the message inside the stationary bubble below buttons with smooth animation
             const currentMsgIndex = Math.min(noCount - 1, noMessages.length - 1);
-            toast.innerText = noMessages[currentMsgIndex];
-            toast.classList.add('show');
+            
+            messageBubble.classList.remove('visible');
+            setTimeout(() => {
+                bubbleText.innerText = noMessages[currentMsgIndex];
+                messageBubble.classList.add('visible');
+            }, 150);
 
             // Spawn explosive visuals at NO button rect
             const rect = btnNo.getBoundingClientRect();
@@ -903,13 +903,11 @@
             const container = document.getElementById('btnContainer');
             const parentRect = container.getBoundingClientRect();
             
-            // Constrain movement area to within the Page-1 card
             const maxX = parentRect.width - rect.width - 20;
             const maxY = parentRect.height - rect.height - 20;
 
-            // Generate random but well-distributed locations
             let newX = Math.random() * maxX;
-            let newY = (Math.random() - 0.5) * 80; // Safe diagonal margins
+            let newY = (Math.random() - 0.5) * 80; 
 
             btnNo.classList.add('escape-transition');
             btnNo.style.position = 'absolute';
@@ -918,14 +916,13 @@
         }
 
         function executeLoveWinsSequence() {
-            // Smoothly collapse and blow up the No option
             const rect = btnNo.getBoundingClientRect();
             createSmokeEffect(rect.left + rect.width/2, rect.top + rect.height/2);
             
             btnNo.style.display = 'none';
 
             // Yes button transitions beautifully to center stage
-            btnYes.style.animation = 'none'; // stop current scale pulse
+            btnYes.style.animation = 'none'; 
             btnYes.classList.add('escape-transition');
             btnYes.style.position = 'absolute';
             btnYes.style.left = '50%';
@@ -952,16 +949,13 @@
         // ================= YES CLICK FLOW =================
 
         function handleYesAction() {
-            // Trigger glorious effects
             playGrandConfettiExplosion();
             
-            // Play sound/music if allowed (empty path, user replaces)
             const audio = document.getElementById('romanticMusic');
             if(audio.src) {
                 audio.play().catch(e => console.log("Audio load pending source replacement."));
             }
 
-            // Cinematic seamless iOS page transition
             card1.style.opacity = '0';
             card1.style.transform = 'scale(0.8) translateY(-40px)';
             
@@ -969,7 +963,6 @@
                 card1.style.display = 'none';
                 const card2 = document.getElementById('page-2');
                 card2.style.display = 'block';
-                // Trigger animation flow
                 setTimeout(() => {
                     card2.style.opacity = '1';
                     card2.style.transform = 'scale(1) translateY(0)';
@@ -994,7 +987,6 @@ Just a life fella right before you go out there next life`;
             if (!envelope.classList.contains('open')) {
                 envelope.classList.add('open');
                 
-                // Trigger realistic continuous heart rain inside system
                 const rainInterval = setInterval(() => {
                     if(!envelope.classList.contains('open')) {
                         clearInterval(rainInterval);
@@ -1003,12 +995,11 @@ Just a life fella right before you go out there next life`;
                     particles.push(new Particle('heart', Math.random() * systemWidth, -10));
                 }, 180);
 
-                // Initialize typewriter
                 if (!isTypingStarted) {
                     isTypingStarted = true;
                     setTimeout(() => {
                         runTypewriterAnimation(document.getElementById('typewriterText'), textContent, 50);
-                    }, 800); // Wait for letter flip animation to ease
+                    }, 800); 
                 }
             } else {
                 envelope.classList.remove('open');
@@ -1023,7 +1014,6 @@ Just a life fella right before you go out there next life`;
                 if (index < text.length) {
                     element.innerHTML += text.charAt(index);
                     index++;
-                    // Scroll letter box down as content grows
                     const letterBox = document.getElementById('loveLetter');
                     letterBox.scrollTop = letterBox.scrollHeight;
                     setTimeout(typeNext, delay);
@@ -1039,11 +1029,9 @@ Just a life fella right before you go out there next life`;
             const icon = document.getElementById('audioBtnIcon');
             
             if (audio.paused) {
-                // To replace: update the audio element's src below or in the HTML
                 if(!audio.src || audio.src.endsWith('/')) {
-                    // Quick placeholder notify if source isn't customized yet
                     alert("Click OK to activate visual music pulse! (Add your custom audio link inside index.html to play sweet music!)");
-                    audio.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; // Sample fallback path
+                    audio.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; 
                 }
                 audio.play()
                     .then(() => {
