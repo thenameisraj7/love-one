@@ -7,19 +7,25 @@
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-gradient-1: #ffb7b2;
-            --bg-gradient-2: #ffdac1;
-            --bg-gradient-3: #e2f0cb;
-            --pink-accent: #ff758c;
-            --pink-glow: #ff7eb3;
-            --glass-bg: rgba(255, 255, 255, 0.35);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --text-main: #4a2834;
+            /* Premium Apple-inspired Pink, Peach, Lavender Palette */
+            --bg-gradient-1: #fff0f3;
+            --bg-gradient-2: #ffe5ec;
+            --bg-gradient-3: #ffccd5;
+            --bg-gradient-4: #e8dbfc;
+            --bg-gradient-5: #f1e4ff;
+            
+            --pink-accent: #ff477e;
+            --pink-glow: #ff7096;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.65);
+            --text-main: #3d1c2a;
+            --text-muted: #6b4354;
             --apple-ease: cubic-bezier(0.25, 1, 0.5, 1);
+            --ios-radius: 36px;
         }
 
         * {
@@ -31,10 +37,10 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-4), var(--bg-gradient-5), var(--bg-gradient-3));
             background-size: 400% 400%;
-            animation: fluidGradient 20s ease infinite;
+            animation: fluidGradient 18s ease infinite;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -51,7 +57,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Premium Floating Glass Background Blobs */
+        /* Premium Floating Blurry Blobs */
         .blob-container {
             position: fixed;
             width: 100vw;
@@ -65,26 +71,26 @@
 
         .blob {
             position: absolute;
-            background: linear-gradient(45deg, rgba(255,117,140,0.4), rgba(255,126,179,0.4));
-            filter: blur(80px);
+            background: linear-gradient(45deg, rgba(255, 112, 150, 0.35), rgba(200, 150, 255, 0.35));
+            filter: blur(100px);
             border-radius: 50%;
-            animation: floatBlob 12s infinite alternate ease-in-out;
+            animation: floatBlob 15s infinite alternate ease-in-out;
         }
 
-        .blob-1 { width: 300px; height: 300px; top: 10%; left: -10%; animation-duration: 14s; }
-        .blob-2 { width: 400px; height: 400px; bottom: -10%; right: -10%; animation-duration: 18s; }
-        .blob-3 { width: 250px; height: 250px; top: 50%; left: 70%; animation-duration: 10s; }
+        .blob-1 { width: 450px; height: 450px; top: -10%; left: -15%; animation-duration: 16s; }
+        .blob-2 { width: 550px; height: 550px; bottom: -15%; right: -15%; animation-duration: 20s; }
+        .blob-3 { width: 350px; height: 350px; top: 40%; left: 65%; animation-duration: 12s; }
 
         @keyframes floatBlob {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 40px) scale(1.2); }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(60px, 50px) scale(1.25) rotate(90deg); }
         }
 
         /* Master View Management */
         .view-container {
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
+            max-width: 520px;
+            padding: 24px;
             z-index: 10;
             display: flex;
             justify-content: center;
@@ -94,36 +100,39 @@
         .page {
             width: 100%;
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 32px 24px;
-            box-shadow: 0 20px 40px rgba(244, 63, 94, 0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+            border-radius: var(--ios-radius);
+            padding: 40px 28px;
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.02),
+                0 30px 70px rgba(244, 63, 94, 0.15), 
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
             text-align: center;
             transition: opacity 0.6s var(--apple-ease), transform 0.6s var(--apple-ease), display 0.6s allow-discrete;
             display: none;
             opacity: 0;
-            transform: scale(0.94);
+            transform: scale(0.93) translateY(10px);
         }
 
         .page.active {
             display: block;
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
 
         /* Elements & Typography */
         .gif-frame {
             width: 100%;
-            max-width: 280px;
-            height: 200px;
-            margin: 0 auto 24px auto;
-            border-radius: 24px;
+            max-width: 300px;
+            height: 220px;
+            margin: 0 auto 28px auto;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-            border: 3px solid #fff;
-            background: rgba(255,255,255,0.2);
+            box-shadow: 0 16px 32px rgba(244, 63, 94, 0.1);
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .gif-frame img {
@@ -133,20 +142,20 @@
         }
 
         h2.subtitle {
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: #6e4655;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 10px;
             letter-spacing: -0.3px;
         }
 
         h1.headline {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.15rem;
+            font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 32px;
-            letter-spacing: -0.5px;
-            line-height: 1.3;
+            margin-bottom: 36px;
+            letter-spacing: -0.7px;
+            line-height: 1.25;
         }
 
         /* Buttons Aesthetic */
@@ -155,133 +164,148 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 18px;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 24px;
         }
 
         .btn {
             border: none;
             outline: none;
-            padding: 16px 32px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 20px;
+            padding: 18px 36px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 22px;
             cursor: pointer;
             transition: all 0.4s var(--apple-ease);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
+        /* Premium Breathing and Shining YES Button */
         #btn-yes {
-            background: linear-gradient(135deg, var(--pink-accent), var(--pink-glow));
+            background: linear-gradient(135deg, var(--pink-accent), #ff5c8a, var(--pink-glow));
             color: #fff;
-            width: 80%;
+            width: 85%;
             z-index: 50;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 24px rgba(255, 117, 140, 0.4);
-            animation: softPulse 2s infinite ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.45);
+            animation: premiumBreath 2.5s infinite ease-in-out;
+        }
+
+        #btn-yes::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-25deg);
+            animation: shineSweep 3.5s infinite ease-in-out;
         }
 
         #btn-yes:hover {
-            transform: scale(1.03);
-            box-shadow: 0 12px 28px rgba(255, 117, 140, 0.6);
+            transform: scale(1.04);
+            box-shadow: 0 14px 35px rgba(255, 71, 126, 0.6);
         }
 
+        /* Fixed Location NO Button */
         #btn-no {
-            background: rgba(255, 255, 255, 0.6);
-            color: #7d5262;
-            width: 80%;
+            background: rgba(255, 255, 255, 0.55);
+            color: var(--text-muted);
+            width: 85%;
             border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 40;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+        }
+        
+        #btn-no:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-main);
         }
 
-        @keyframes softPulse {
-            0% { transform: scale(1); box-shadow: 0 8px 24px rgba(255, 117, 140, 0.4); }
-            50% { transform: scale(1.04); box-shadow: 0 12px 32px rgba(255, 117, 140, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 8px 24px rgba(255, 117, 140, 0.4); }
+        @keyframes premiumBreath {
+            0% { transform: scale(1); box-shadow: 0 10px 30px rgba(255, 71, 126, 0.45); }
+            50% { transform: scale(1.03); box-shadow: 0 14px 35px rgba(255, 71, 126, 0.55), 0 0 0 4px rgba(255, 71, 126, 0.15); }
+            100% { transform: scale(1); box-shadow: 0 10px 30px rgba(255, 71, 126, 0.45); }
+        }
+
+        @keyframes shineSweep {
+            0% { left: -120%; }
+            30% { left: 120%; }
+            100% { left: 120%; }
         }
 
         .card-shake {
-            animation: shake 0.4s ease-in-out;
+            animation: premiumShake 0.4s var(--apple-ease);
         }
 
-        @keyframes shake {
+        @keyframes premiumShake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
         }
 
         /* Floating Audio Control */
         .audio-control {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 24px;
+            right: 24px;
             z-index: 100;
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.5);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            width: 48px;
-            height: 48px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
-            transition: transform 0.3s var(--apple-ease);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            transition: all 0.3s var(--apple-ease);
         }
 
         .audio-control:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
         .audio-icon {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
 
-        /* Particles System Elements */
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 99;
-            font-size: 24px;
-            animation: particleFly 1.2s forwards cubic-bezier(0.1, 0.8, 0.3, 1);
-        }
-
-        @keyframes particleFly {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
-            100% { opacity: 0; transform: translate(var(--mx), var(--my)) scale(1.5) rotate(var(--mr)); }
-        }
-
-        /* Page 2 Galleries & Card Deck Grid */
+        /* Page 2 Cards Grid Layout */
         .gallery-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 36px 0 20px 0;
-            letter-spacing: -0.2px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 40px 0 24px 0;
+            letter-spacing: -0.4px;
             color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 32px;
+            gap: 14px;
+            margin-bottom: 36px;
         }
 
-        /* High Polish 3D Flip System */
+        /* 3D Flip System Elements */
         .flip-card {
             background-color: transparent;
-            height: 110px;
+            height: 120px;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -291,7 +315,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-style: preserve-3d;
         }
 
@@ -305,99 +329,102 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 18px;
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            padding: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
         }
 
         .flip-card-front {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.6);
             color: var(--pink-accent);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
         .flip-card-back {
-            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,230,235,0.9));
-            border: 1px solid var(--pink-accent);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 240, 243, 0.95));
+            border: 1px solid rgba(255, 71, 126, 0.4);
             color: var(--text-main);
             transform: rotateY(180deg);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.4;
             overflow-y: auto;
         }
 
         /* Handwritten Letter Aesthetic */
         .letter-container {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 28px;
+            padding: 28px;
             text-align: left;
-            margin: 28px 0;
-            box-shadow: inset 0 0 20px rgba(255,117,140,0.05), 0 10px 25px rgba(0,0,0,0.03);
+            margin: 32px 0;
+            box-shadow: 
+                inset 0 0 30px rgba(255, 117, 140, 0.04), 
+                0 15px 35px rgba(0, 0, 0, 0.02);
             position: relative;
         }
 
         .letter-text {
             font-family: 'Caveat', cursive;
-            font-size: 1.45rem;
-            line-height: 1.4;
+            font-size: 1.55rem;
+            line-height: 1.45;
             color: #3b202a;
             white-space: pre-wrap;
             min-height: 160px;
         }
 
         .letter-sign {
-            margin-top: 16px;
+            margin-top: 20px;
             font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
+            font-size: 1.75rem;
             font-weight: bold;
             text-align: right;
             color: var(--pink-accent);
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1s var(--apple-ease);
         }
 
-        /* Final surprise element box */
+        /* Final Surprise Box Elements */
         .surprise-box {
-            margin-top: 24px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,182,193,0.3));
+            margin-top: 28px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,182,193,0.25));
             border: 1px dashed var(--pink-accent);
-            border-radius: 20px;
+            border-radius: 24px;
             cursor: pointer;
             transition: all 0.3s var(--apple-ease);
         }
 
         .surprise-box:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,182,193,0.4));
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,182,193,0.35));
+            box-shadow: 0 10px 25px rgba(255, 71, 126, 0.1);
         }
 
         .poem-display {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.98rem;
+            line-height: 1.65;
             font-style: italic;
             color: #5c3543;
-            margin-top: 16px;
+            margin-top: 20px;
             white-space: pre-wrap;
             display: none;
             text-align: center;
-            animation: fadeIn 1s forwards;
+            animation: fadeIn 1.2s forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Canvas Overlay for Celebrations */
+        /* Canvas Overlay for Engine Particles */
         #celeb-canvas {
             position: fixed;
             top: 0;
@@ -409,58 +436,58 @@
         }
 
         .para-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #613b48;
-            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
-        /* Extra Responsive Scaling */
-        @media(max-width: 400px) {
-            h1.headline { font-size: 1.65rem; }
+        /* Layout Adaptations */
+        @media(max-width: 420px) {
+            h1.headline { font-size: 1.8rem; }
             .cards-grid { grid-template-columns: 1fr; }
-            .flip-card { height: 90px; }
+            .flip-card { height: 100px; }
+            .page { padding: 32px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Audio Object -->
+    <!-- Ambient Audio Context -->
     <audio id="bg-audio" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Floating UI Sound Controls -->
+    <!-- Floating Audio Component Toggle -->
     <div class="audio-control" id="audio-toggle" onclick="toggleAudio()">
         <span class="audio-icon" id="audio-icon">🔇</span>
     </div>
 
-    <!-- Background Elements -->
+    <!-- Fluid Background Containers -->
     <div class="blob-container">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
     </div>
 
-    <!-- Interactive Canvas Layer -->
+    <!-- Main Render Pipeline Layer -->
     <canvas id="celeb-canvas"></canvas>
 
-    <!-- Content Router Wrapper -->
+    <!-- Content Router Module -->
     <div class="view-container">
 
         <!-- ================= PAGE 1 ================= -->
         <div class="page active" id="page-1">
             <div class="gif-frame">
-                <!-- Fallback framework built in so if local raj.gif isn't loaded it scales transparently -->
                 <img src="raj.gif" alt="Romantic Proposing Scene" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW1wY3RpaHd5bXF6OW1xZjM4MG9pZXc4dWY5dnd1cm1vY214d293ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L4lvBzeIlLIUWMxB81/giphy.gif'">
             </div>
             <h2 class="subtitle">Hey Riddhima ❤️</h2>
-            <p class="para-text" style="margin-bottom: 12px;">I have something really important to ask you...</p>
+            <p class="para-text">I have something really important to ask you...</p>
             <h1 class="headline">💍 Will You Be Mine Forever?</h1>
             
             <div class="btn-wrapper" id="p1-btn-wrapper">
-                <button class="btn" id="btn-yes" onclick="handleYes()">❤️ YES</button>
-                <button class="btn" id="btn-no" onclick="handleNo()">💔 NO</button>
+                <button class="btn" id="btn-yes" onclick="handleYes(event)">❤️ YES</button>
+                <button class="btn" id="btn-no" onclick="handleNo(event)">💔 NO</button>
             </div>
         </div>
 
@@ -469,8 +496,8 @@
             <div class="gif-frame">
                 <img src="celebrate.gif" alt="Celebrating Love Scene" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTNkZzJndW93dHd5d3B5ZXd4ZnN5d29jcDZ4c241dDJ5dTR6ZXB1MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/26hpqtC291HThgA0w/giphy.gif'">
             </div>
-            <h1 class="headline" style="margin-bottom: 16px;">❤️ She Said YES ❤️</h1>
-            <p class="para-text" style="font-style: italic; font-weight: 500;">
+            <h1 class="headline" style="margin-bottom: 18px;">❤️ She Said YES ❤️</h1>
+            <p class="para-text" style="font-style: italic; font-weight: 500; color: var(--text-main);">
                 "From this moment I'll stand beside you, make you laugh, support your dreams, annoy you forever, and love you with all my heart."
             </p>
 
@@ -591,36 +618,36 @@
                 </div>
             </div>
 
-            <!-- Handwritten Premium Love Letter Layout -->
+            <!-- Handwritten Love Letter Layout -->
             <div class="gallery-title">💌 A LETTER FOR YOU</div>
             <div class="letter-container">
                 <div class="letter-text" id="typewriter-target"></div>
                 <div class="letter-sign" id="letter-signature">Your always❤️</div>
             </div>
 
-            <!-- Final Surprise Interactive Section -->
+            <!-- Final Surprise Interactive Layout -->
             <div class="surprise-box" id="surprise-trigger" onclick="revealSurprise()">
-                <h3 style="font-size: 1.1rem; font-weight:600; text-align:center;">🎁 One Last Surprise</h3>
+                <h3 style="font-size: 1.15rem; font-weight:700; text-align:center;">🎁 One Last Surprise</h3>
                 <div class="poem-display" id="poem-content"></div>
             </div>
         </div>
 
-        <!-- ================= PAGE 3 (FINAL SCREEN) ================= -->
+        <!-- ================= PAGE 3 ================= -->
         <div class="page" id="page-3">
-            <h1 class="headline" style="font-size: 2.5rem; margin-bottom: 40px;">Forever?</h1>
-            <button class="btn" id="btn-always" onclick="handleAlways()" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; width: 80%; padding: 20px; font-size: 1.3rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(255,75,43,0.3);">❤️ Always ❤️</button>
+            <h1 class="headline" style="font-size: 2.65rem; margin-bottom: 44px;">Forever?</h1>
+            <button class="btn" id="btn-always" onclick="handleAlways(event)" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; width: 85%; padding: 20px; font-size: 1.35rem; border-radius: 24px; box-shadow: 0 12px 35px rgba(255,75,43,0.35);">❤️ Always ❤️</button>
             
-            <div id="final-declaration" style="display:none; margin-top: 40px; animation: fadeIn 1s forwards;">
+            <div id="final-declaration" style="display:none; margin-top: 44px; animation: fadeIn 1.2s forwards;">
                 <h1 class="headline" style="color: var(--pink-accent);">❤️ finally Riddhima ❤️</h1>
-                <h2 class="subtitle" style="font-size: 1.5rem;">"I knew it😉"</h2>
+                <h2 class="subtitle" style="font-size: 1.6rem; font-weight: 700;">"I knew it😉"</h2>
             </div>
         </div>
 
     </div>
 
-    <!-- Master Application Script -->
+    <!-- Application Script Module -->
     <script>
-        // Data Structures
+        // Data Configuration Matrices
         const noMessages = [
             "Are you sure?😭",
             "Sahi me🙄",
@@ -674,17 +701,21 @@ All those people said they wouldn't last a minute near
 I'm with you and I could roll into another year and have to forever loulmate
 Just a life fella right before you go out there next life`;
 
-        // State Machine Variables
+        // Execution States
         let yesScale = 1.0;
         let audioPlaying = false;
         const bgAudio = document.getElementById('bg-audio');
         const audioIcon = document.getElementById('audio-icon');
         
-        // Canvas Setup for Particles
+        // Canvas Processing Setup
         const canvas = document.getElementById('celeb-canvas');
         const ctx = canvas.getContext('2d');
         let canvasParticles = [];
         let animationFrameId = null;
+
+        // Mouse Trail Tracker Mapping
+        let lastMousePos = { x: 0, y: 0 };
+        let hasMovedMouse = false;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -693,10 +724,10 @@ Just a life fella right before you go out there next life`;
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // High Quality Audio Toggle System
+        // Audio Layer Controls
         function toggleAudio() {
             if (!audioPlaying) {
-                bgAudio.play().catch(err => console.log("Audio play deferred or blocked:", err));
+                bgAudio.play().catch(err => console.log("Audio pipeline active wait state:", err));
                 audioIcon.textContent = "🔊";
                 audioPlaying = true;
             } else {
@@ -706,25 +737,34 @@ Just a life fella right before you go out there next life`;
             }
         }
 
-        // Particle Class definition for modular usage
-        class VisualParticle {
+        // Modular Rendering Particle System Engine
+        class HighPolishParticle {
             constructor(x, y, type = 'heart') {
                 this.x = x;
                 this.y = y;
-                this.type = type; // heart, broken, sparkle, rose, star
-                this.size = Math.random() * 20 + 15;
-                this.speedX = (Math.random() - 0.5) * 8;
-                this.speedY = -Math.random() * 6 - 2;
-                this.gravity = 0.15;
-                this.opacity = 1;
-                this.rotation = Math.random() * 360;
-                this.rotSpeed = (Math.random() - 0.5) * 4;
+                this.type = type; // heart, broken, sparkle, rose, trail
+                this.size = Math.random() * 18 + 14;
                 
-                // Emoji pool mappings
+                if (type === 'trail') {
+                    this.size = Math.random() * 6 + 4;
+                    this.speedX = (Math.random() - 0.5) * 3;
+                    this.speedY = (Math.random() - 0.5) * 3;
+                    this.gravity = -0.02; // Float slowly upward like stellar dust
+                    this.opacity = 0.9;
+                } else {
+                    this.speedX = (Math.random() - 0.5) * 9;
+                    this.speedY = -Math.random() * 7 - 3;
+                    this.gravity = 0.16;
+                    this.opacity = 1;
+                }
+                
+                this.rotation = Math.random() * 360;
+                this.rotSpeed = (Math.random() - 0.5) * 5;
+                
                 const hearts = ['❤️', '💖', '💝', '💕'];
-                const brokens = ['💔', '😭', '🥺'];
-                const sparkles = ['✨', '⭐', '🌟'];
-                const roses = ['🌹', '🌸', '🌷'];
+                const brokens = ['💔', '✨', '💖', '🌸']; // Gentle premium clicks
+                const sparkles = ['✨', '⭐', '🌟', '✨'];
+                const roses = ['🌹', '🌸', '🌷', '✨'];
 
                 if(type === 'heart') this.char = hearts[Math.floor(Math.random() * hearts.length)];
                 else if(type === 'broken') this.char = brokens[Math.floor(Math.random() * brokens.length)];
@@ -737,20 +777,34 @@ Just a life fella right before you go out there next life`;
                 this.y += this.speedY;
                 this.speedY += this.gravity;
                 this.rotation += this.rotSpeed;
-                this.opacity -= 0.015;
+                this.opacity -= (this.type === 'trail') ? 0.025 : 0.016;
             }
 
             draw() {
                 ctx.save();
                 ctx.globalAlpha = Math.max(0, this.opacity);
                 ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation * Math.PI / 180);
-                ctx.font = `${this.size}px Arial`;
-                ctx.fillText(this.char, -this.size/2, this.size/2);
+                
+                if (this.type === 'trail') {
+                    // Draw clean glowing circle points for standard trail effects
+                    ctx.beginPath();
+                    let glowGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
+                    glowGrad.addColorStop(0, 'rgba(255, 71, 126, 0.8)');
+                    glowGrad.addColorStop(0.4, 'rgba(255, 112, 150, 0.4)');
+                    glowGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.fillStyle = glowGrad;
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.rotate(this.rotation * Math.PI / 180);
+                    ctx.font = `${this.size}px Arial`;
+                    ctx.fillText(this.char, -this.size/2, this.size/2);
+                }
                 ctx.restore();
             }
         }
 
+        // Loop Manager Processor
         function runParticleEngine() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = canvasParticles.length - 1; i >= 0; i--) {
@@ -766,103 +820,108 @@ Just a life fella right before you go out there next life`;
 
         function spawnParticles(x, y, type, count = 15) {
             for(let i=0; i<count; i++) {
-                canvasParticles.push(new VisualParticle(x, y, type));
+                canvasParticles.push(new HighPolishParticle(x, y, type));
             }
         }
 
-        // DOM Particle Emitters for localized action inside Page 1 UI
-        function createDOMExplosion(e, isNoClick = false) {
-            const rect = e.target.getBoundingClientRect();
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
+        // Continuous High Performance Desktop Tracker Connection
+        window.addEventListener('mousemove', (e) => {
+            hasMovedMouse = true;
+            lastMousePos.x = e.clientX;
+            lastMousePos.y = e.clientY;
             
-            if (isNoClick) {
-                spawnParticles(startX, startY, 'broken', 10);
-                spawnParticles(startX, startY, 'heart', 8);
-                spawnParticles(startX, startY, 'sparkle', 10);
+            // Generate glowing point particles at local coordinate locations
+            if (Math.random() < 0.35) {
+                canvasParticles.push(new HighPolishParticle(e.clientX, e.clientY, 'trail'));
+            }
+            if (Math.random() < 0.12) {
+                canvasParticles.push(new HighPolishParticle(e.clientX, e.clientY, 'sparkle'));
+            }
+        });
+
+        // Trigger Event Explosions
+        function triggerClickExplosion(e, type) {
+            let startX = window.innerWidth / 2;
+            let startY = window.innerHeight / 2;
+            
+            if (e && e.clientX && e.clientY) {
+                startX = e.clientX;
+                startY = e.clientY;
+            } else if (e && e.target) {
+                const rect = e.target.getBoundingClientRect();
+                startX = rect.left + rect.width / 2;
+                startY = rect.top + rect.height / 2;
+            }
+            
+            if (type === 'no') {
+                spawnParticles(startX, startY, 'broken', 12);
+                spawnParticles(startX, startY, 'sparkle', 12);
             } else {
-                spawnParticles(startX, startY, 'heart', 25);
-                spawnParticles(startX, startY, 'sparkle', 25);
+                spawnParticles(startX, startY, 'heart', 30);
+                spawnParticles(startX, startY, 'sparkle', 30);
             }
         }
 
-        // ================= INTERACTION BUSINESS LOGIC =================
-        
-        // NO Button Handling Framework
+        // ================= BUSINESS LOGIC LOOP ROUTERS =================
+
+        // Fixed Positioning Action Controller for NO selection
         function handleNo(e) {
-            const event = e || window.event;
             const noBtn = document.getElementById('btn-no');
             const yesBtn = document.getElementById('btn-yes');
             const p1 = document.getElementById('page-1');
             
-            // 1. Shake the interactive card container
+            // 1. Structural Component Shaking
             p1.classList.remove('card-shake');
-            void p1.offsetWidth; // Force re-render execution loop
+            void p1.offsetWidth; // Loop boundary refresh
             p1.classList.add('card-shake');
             
-            // 2. Map and cycle structural random text strings
+            // 2. Cycling dynamic messaging nodes
             const randomMsg = noMessages[Math.floor(Math.random() * noMessages.length)];
             noBtn.innerHTML = `💔 ${randomMsg}`;
 
-            // 3. Trigger structural components explosion
-            if (event) createDOMExplosion(event, true);
+            // 3. Spawns satisfying clean aesthetic spark items
+            triggerClickExplosion(e, 'no');
 
-            // 4. Transformative exponential calculation for YES scaling bounds
+            // 4. Transform native bounds calculations for YES button elements
             yesScale += 0.15;
             yesBtn.style.transform = `scale(${yesScale})`;
-            yesBtn.style.padding = `${16 * Math.min(yesScale, 3)}px ${32 * Math.min(yesScale, 2)}px`;
+            yesBtn.style.padding = `${18 * Math.min(yesScale, 2.8)}px ${36 * Math.min(yesScale, 1.8)}px`;
             
-            // Captures absolute interaction bounding box overlap conditions safely
-            if(yesScale > 3.5) {
-                // If it grows into mega layout state, simulate automatic intersection trigger protection
-                handleYes();
+            if(yesScale > 3.6) {
+                handleYes(e);
             }
         }
 
-        // YES Button Handling Framework
+        // Standard YES handler workflow
         function handleYes(e) {
-            const event = e || window.event;
-            const canvasElement = document.getElementById('celeb-canvas');
-            
-            // Execution of heavy canvas particle storm parameters
-            if (event) {
-                createDOMExplosion(event, false);
-            } else {
-                spawnParticles(window.innerWidth/2, window.innerHeight/2, 'heart', 40);
-                spawnParticles(window.innerWidth/2, window.innerHeight/2, 'sparkle', 40);
-            }
+            triggerClickExplosion(e, 'yes');
 
-            // Create global sky loop rain effect sequence
+            // Constant downpour matrix generation variables
             let loopCounter = 0;
             const rainInterval = setInterval(() => {
-                spawnParticles(Math.random() * window.innerWidth, 0, 'heart', 2);
-                spawnParticles(Math.random() * window.innerWidth, 0, 'sparkle', 2);
+                spawnParticles(Math.random() * window.innerWidth, -10, 'heart', 2);
+                spawnParticles(Math.random() * window.innerWidth, -10, 'sparkle', 2);
                 loopCounter++;
-                if(loopCounter > 50) clearInterval(rainInterval);
-            }, 60);
+                if(loopCounter > 60) clearInterval(rainInterval);
+            }, 50);
 
-            // Shift document container style state to Dreamy Romantic Pink Sky
-            document.body.style.background = "linear-gradient(135deg, #ff758c 0%, #ff7eb3 50%, #fccb90 100%)";
+            // Transforming main container gradient properties into beautiful warm hues
+            document.body.style.background = "linear-gradient(135deg, #ff758c 0%, #ff8fa3 40%, #e8dbfc 100%)";
             document.body.style.backgroundSize = "400% 400%";
 
-            // UI Screen Swapping Logic
             switchPage('page-1', 'page-2');
             
-            // Fire asynchronous delayed typewriter sequence rendering
             setTimeout(initTypewriter, 800);
         }
 
         function switchPage(fromId, toId) {
-            const fromPage = document.getElementById(fromId);
-            const toPage = document.getElementById(toId);
-            
-            fromPage.classList.remove('active');
+            document.getElementById(fromId).classList.remove('active');
             setTimeout(() => {
-                toPage.classList.add('active');
+                document.getElementById(toId).classList.add('active');
             }, 400);
         }
 
-        // Elegant Typewriter Processor Engine
+        // Organic Typewriter processing sequence
         function initTypewriter() {
             const container = document.getElementById('typewriter-target');
             let idx = 0;
@@ -877,17 +936,15 @@ Just a life fella right before you go out there next life`;
                         container.innerHTML += char;
                     }
                     idx++;
-                    // Smooth, randomized speed variance tracking real organic pacing
-                    setTimeout(typeNextChar, Math.random() * 15 + 10);
+                    setTimeout(typeNextChar, Math.random() * 12 + 8);
                 } else {
-                    // Reveal high elegant handwriting structural signature element block
                     document.getElementById('letter-signature').style.opacity = "1";
                 }
             }
             typeNextChar();
         }
 
-        // Final Section Reveal Sequence Functionality
+        // Surprise segment visibility handler
         let surpriseRevealed = false;
         function revealSurprise() {
             if(surpriseRevealed) return;
@@ -897,31 +954,31 @@ Just a life fella right before you go out there next life`;
             target.style.display = "block";
             target.innerText = poemText;
 
-            // Generate fireworks burst mechanics simulation matrices
-            for(let i=0; i<5; i++) {
+            // Loop system tracking structural particle burst arrays
+            for(let i=0; i<6; i++) {
                 setTimeout(() => {
                     const rx = Math.random() * window.innerWidth;
-                    const ry = Math.random() * (window.innerHeight * 0.6);
-                    spawnParticles(rx, ry, 'rose', 15);
-                    spawnParticles(rx, ry, 'sparkle', 15);
-                }, i * 300);
+                    const ry = Math.random() * (window.innerHeight * 0.7);
+                    spawnParticles(rx, ry, 'rose', 12);
+                    spawnParticles(rx, ry, 'sparkle', 12);
+                }, i * 350);
             }
 
-            // Route execution flow to terminal selection overlay panel
+            // Route execution flow directly onto terminal screen frame
             setTimeout(() => {
                 switchPage('page-2', 'page-3');
-            }, 8000);
+            }, 8500);
         }
 
-        // Final Screen Actions Array
-        function handleAlways() {
+        // Always confirmation array action logic
+        function handleAlways(e) {
+            triggerClickExplosion(e, 'yes');
             document.getElementById('btn-always').style.display = 'none';
             document.getElementById('final-declaration').style.display = 'block';
 
-            // Loop forever generating heart metrics flooding screen structural bounds
             setInterval(() => {
                 spawnParticles(Math.random() * window.innerWidth, window.innerHeight + 20, 'heart', 2);
-            }, 100);
+            }, 120);
         }
     </script>
 </body>
